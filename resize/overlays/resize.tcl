@@ -641,41 +641,5 @@ proc create_root_design { parentCell } {
 # MAIN FLOW
 ##################################################################
 
-set start_time [clock seconds]
-
 create_root_design ""
 
-# Add Project source files
-puts "***** Adding Source Files to Block Design..."
-make_wrapper -files [get_files ${design_name}.bd] -top
-add_files -norecurse ${projects_folder}/${project}.srcs/sources_1/bd/${project}/hdl/${design_name}_wrapper.vhd
-
-# Build the binary
-#*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-#*- KEEP OUT, do not touch this section unless you know what you are doing! -*
-#*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-puts "***** Building Binary..."
-# add this to allow up+enter rebuild capability 
-cd $scripts_folder
-update_compile_order -fileset sources_1
-update_compile_order -fileset sim_1
-save_bd_design
-launch_runs impl_1 -to_step write_bitstream
-#*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-#*- KEEP OUT, do not touch this section unless you know what you are doing! -*
-#*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-
-set end_time [clock seconds]
-set number_seconds [expr {$end_time - $start_time}]
-set time_string "Your Build Took\nseconds [$number_seconds]\n\nor a total of:\n\ndays [[expr {$number_seconds/86400}]]\nhrs  [[expr {($number_seconds%86400)/3600}]]\nmin  [[expr {(($number_seconds%86400)%3600)/60}]]\nsec  [[expr {(($number_seconds%86400)%3600)%60}]]\n\nto complete"
-
-puts "
-$time_string
-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-*-                                                     -*
-*-            Finished Running Script                  -*
-*-                                                     -*
-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-"

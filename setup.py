@@ -126,9 +126,9 @@ setup(name='pynqDL',
       description='Xilinx Deep Learning IP using PYNQ Framework',
       author='Xilinx',
       author_email='npurusho@xilinx.com',
-      url='https://github.com/Xilinx/PYNQ-DL.git',
+      url='https://github.com/zedhed/PYNQ-DL.git',
       packages=find_packages(),
-      download_url='https://github.com/Xilinx/PYNQ-DL.git',
+      download_url='https://github.com/zedhed/PYNQ-DL.git',
       package_data={
           '': extra_files,
       }
